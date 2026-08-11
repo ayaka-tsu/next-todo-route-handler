@@ -23,7 +23,7 @@ model Todo {
  title String 
  content String
  status Status
-deadline DateTime
+deadline DateTime?
 createdAt DateTime @default(now())
 updatedAt DateTime @updatedAt
 }
