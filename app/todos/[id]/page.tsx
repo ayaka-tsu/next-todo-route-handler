@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 type TodoDetailPageProps = {
@@ -36,8 +37,13 @@ const TodoDetailPage = ({ params }: TodoDetailPageProps) => {
   return (
     <div className="w-full max-w-md mx-auto mt-8">
       <h1 className="text-2xl font-bold mb-6 text-center">TODO詳細</h1>
-
-      <div className="border rounded-lg p-6 space-y-5">
+      <Link
+        href="/todos"
+        className="inline-block mb-4 text-blue-500 hover:underline"
+      >
+        一覧に戻る
+      </Link>
+      <div className="bg-white rounded-lg p-6 space-y-5 shadow-md">
         <div>
           <p className="text-sm font-bold mb-1">タイトル</p>
           <p className="border rounded px-3 py-2">{todo.title}</p>
@@ -50,20 +56,26 @@ const TodoDetailPage = ({ params }: TodoDetailPageProps) => {
 
         <div>
           <p className="text-sm font-bold mb-1">ステータス</p>
-          <p className="border rounded px-3 py-2 min-h-20">{todo.status}</p>
+          <p className="border rounded px-3 py-2 min-h-20">
+            {todo.status === "TODO"
+              ? "未着手"
+              : todo.status === "DOING"
+                ? "進行中"
+                : "完了"}
+          </p>
         </div>
 
         <div className="flex justify-center gap-4 pt-2">
           <button
             onClick={handleDelete}
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 cursor-pointer active:scale-95"
           >
             削除
           </button>
 
           <button
             onClick={() => router.push(`/todos/${id}/edit`)}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 cursor-pointer active:scale-95"
           >
             編集
           </button>

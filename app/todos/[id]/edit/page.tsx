@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -39,18 +40,22 @@ const TodoEditPage = ({ params }: TodoEditPageProps) => {
         deadline,
       }),
     });
-    router.push(`/todos/${id}`);
+    router.push("/todos/");
   };
   return (
-    <div className="w-full max-w-md mx-auto mt-5">
-      <form
-        onSubmit={handleSubmit}
-        className="mb-4 space-y-3"
+    <div className="w-full max-w-md mx-auto mt-5 bg-white p-6 rounded-lg shadow-md">
+      <Link
+        href="/todos"
+        className="inline-block mb-4 text-blue-500 hover:underline"
       >
+        一覧に戻る
+      </Link>
+      <form onSubmit={handleSubmit} className="mb-4 space-y-3">
         <label>タイトル(50文字以内)</label>
         <input
           maxLength={50}
           type="text"
+          required
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="w-full border px-4 py-2 rounded-lg"
@@ -60,6 +65,7 @@ const TodoEditPage = ({ params }: TodoEditPageProps) => {
         <textarea
           maxLength={100}
           value={content}
+          required
           onChange={(e) => setContent(e.target.value)}
           className="w-full border px-4 py-2 rounded-lg"
         />
@@ -85,9 +91,9 @@ const TodoEditPage = ({ params }: TodoEditPageProps) => {
 
         <button
           type="submit"
-          className="px-4 py-2 block mx-auto text-white bg-blue-500 rounded transform hover:bg-blue-400 hover:scale-95 duration-200"
+          className="px-4 py-2 block mx-auto text-white bg-blue-500 rounded transform hover:bg-blue-600 duration-200 cursor-pointer active:scale-95"
         >
-          更新
+          保存
         </button>
       </form>
     </div>
